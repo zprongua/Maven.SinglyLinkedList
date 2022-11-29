@@ -18,13 +18,13 @@ public class SinglyLinkedList {
 
 
     public void add(Object o) {
-        Object[][] temp = new Object[oa.length+1][2];
-        for (int i=0; i<oa.length; i++) {
+        Object[][] temp = new Object[size()+1][2];
+        for (int i=0; i<size(); i++) {
             temp[i][0] = i;
             temp[i][1] = oa[i][1];
         }
-        temp[oa.length][0] = oa.length;
-        temp[oa.length][1] = o;
+        temp[size()][0] = size();
+        temp[size()][1] = o;
 //        remove(null);
         oa = temp;
 //        for (int i=0; i<size(); i++) {
@@ -33,9 +33,9 @@ public class SinglyLinkedList {
     }
 
     public void remove(Object o) {
-        Object[][] temp = new Object[oa.length-1][2];
+        Object[][] temp = new Object[size()-1][2];
         int j = 0;
-        for (int i=0; i<oa.length; i++) {
+        for (int i=0; i<size(); i++) {
             Object t = oa[i][1];
             try {
                 if (!t.equals(o)) {
@@ -79,8 +79,8 @@ public class SinglyLinkedList {
     }
 
     public SinglyLinkedList copy() {
-        Object[][] temp = new Object[oa.length][2];
-        for (int i=0; i<oa.length; i++) {
+        Object[][] temp = new Object[size()][2];
+        for (int i=0; i<size(); i++) {
             temp[i][0] = i;
             temp[i][1] = oa[i][1];
         }
@@ -89,9 +89,60 @@ public class SinglyLinkedList {
 
     public void sort() {
         int count = 0;
-        Object[][] sorted = new Object[oa.length][2];
-        while (count<oa.length) {
-            
+        Object[][] sorted = new Object[size()][2];
+        while (count >= 0) {
+            for (int i=0; i<size(); i++) {
+                if (i < size() - 1) {
+                    int o1 = String.valueOf(oa[i][1]).codePointAt(0);
+                    int o2 = String.valueOf(oa[i+1][1]).codePointAt(0);
+                    if (o1 <= o2) {
+                        sorted[count][0] = count;
+                        sorted[i][1] = oa[i][1];
+                        count++;
+                    }
+                    else if (o1 > o2) {
+                        if (sorted[i][1] == null) {
+                            sorted[count][0] = count;
+                            sorted[i][1] = oa[i + 1][1];
+                            sorted[count + 1][0] = count + 1;
+                            sorted[count + 1][1] = oa[i][1];
+                        } else {
+                            sorted[count+1][0] = count+1;
+                            sorted[count+1][1] = sorted[count][1];
+                            sorted[count][0] = count;
+                            sorted[i][1] = oa[i + 1][1];
+                        }
+                        count++;
+                    }
+                }
+                else if (i==size()){
+                    count=0;
+                }
+                else count = -1;
+            }
         }
+        oa = sorted;
+    }
+
+    public void reverse() {
+        Object[][] reverse = new Object[size()][2];
+        int j = 0;
+        for (int i=size()-1; i>=0; i--) {
+            reverse[j][0] = j;
+            reverse[j][1] = oa[i][1];
+            j++;
+        }
+        oa = reverse;
+    }
+
+    public void slice(int i1, int i2) {
+        Object[][] slice = new Object[i2-i1][2];
+        int j=0;
+        for (int i=i1; i<i2; i++) {
+            slice[j][0] = j;
+            slice[j][1] = oa[i][1];
+            j++;
+        }
+        oa = slice;
     }
 }

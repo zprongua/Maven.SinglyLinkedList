@@ -1,7 +1,7 @@
 package com.zipcodewilmington.singlylinkedlist;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Created by leon on 1/10/18.
@@ -66,7 +66,8 @@ public class SinglyLinkedListTest {
         sll.remove(null);
         Assert.assertEquals(42, sll.get(1));
     }
-//    copy -- returns a new linked list containing the same values (look up deep versus shallow copy)
+//    copy -- returns a new linked list containing the same values
+//    (look up deep versus shallow copy)
     @Test
     public void testCopy() {
         sll = new SinglyLinkedList();
@@ -76,16 +77,41 @@ public class SinglyLinkedListTest {
         SinglyLinkedList sll2 = sll.copy();
         Assert.assertEquals(42, sll2.get(1));
     }
-//    sort -- sorts the list using your algorithm of choice. You must perform the sorting yourself (no fair using someone else's library)
+//    sort -- sorts the list using your algorithm of choice.
+//    You must perform the sorting yourself (no fair using someone else's library)
     @Test
     public void testSort() {
         sll = new SinglyLinkedList();
         sll.add(42);
         sll.add("Marvin");
         sll.add("Deep Thought");
+        sll.add("Arthur");
         sll.remove(null);
         sll.sort();
-        Assert.assertEquals("Marvin", sll.get(2));
+        Assert.assertEquals("Marvin", sll.get(3));
     }
 
+    @Test
+    public void reverse() {
+        sll = new SinglyLinkedList();
+        sll.add(42);
+        sll.add("Marvin");
+        sll.add("Deep Thought");
+        sll.add("Arthur");
+        sll.remove(null);
+        sll.reverse();
+        Assert.assertEquals(42, sll.get(3));
+    }
+
+    @Test
+    public void slice() {
+        sll = new SinglyLinkedList();
+        sll.add(42);
+        sll.add("Marvin");
+        sll.add("Deep Thought");
+        sll.add("Arthur");
+        sll.remove(null);
+        sll.slice(1,3);
+        Assert.assertEquals("Deep Thought", sll.get(1));
+    }
 }
