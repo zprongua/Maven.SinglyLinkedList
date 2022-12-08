@@ -1,7 +1,5 @@
 package com.zipcodewilmington.singlylinkedlist;
 
-import java.util.Arrays;
-
 /**
  * Created by leon on 1/10/18.
  */
