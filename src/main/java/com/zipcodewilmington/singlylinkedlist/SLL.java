@@ -6,12 +6,18 @@ public class SLL <T extends Comparable<T>> {
 
     private Node<T> head;
 
-
-
-    public void add(T data) {
+    public SLL<T> add(T data) {
+        Node<T> add = new Node<>(data);
         if (this.head == null) {
-            this.head.setData(data);
+            head = add;
+        } else {
+            Node<T> temp = head;
+            while (temp.hasNext()) {
+                temp = temp.getNext();
+            }
+            temp.setNext(add);
         }
+        return this;
     }
 
     public void remove(int index) throws IndexOutOfBoundsException {
@@ -65,7 +71,7 @@ public class SLL <T extends Comparable<T>> {
     }
 
     public boolean contains (T data) {
-        return this.find(data) != 1;
+        return this.find(data) != -1;
     }
 
     public SLL<T> copy() {
